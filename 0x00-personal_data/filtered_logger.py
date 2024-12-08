@@ -19,11 +19,11 @@ class RedactingFormatter(logging.Formatter):
     def __init__(self, fields: List[str]) -> None:
         """function"""
         super(RedactingFormatter, self).__init__(self.FORMAT)
-        self.fields = fields
+        self.fields: List[str] = fields
 
     def format(self, record: logging.LogRecord) -> str:
         """Format the log record by obfuscating specified fields."""
-        record.msg = filter_datum(self.fields, RedactingFormatter.REDACTION,
+        record.msg: str = filter_datum(self.fields, RedactingFormatter.REDACTION,
                                   record.msg, RedactingFormatter.SEPARATOR)
         return super().format(record)
 
