@@ -9,6 +9,6 @@ from typing import List
 
 def filter_datum(fields: List[str],
                  redaction: str, message: str, separator: str) -> str:
-    """Function"""
+    """Obfuscate specified fields in the log message."""
     pattern = r'(' + '|'.join(fields) + r')=[^' + f'{separator}' + r']+'
     return re.sub(pattern, r'\1=' + redaction, message)
