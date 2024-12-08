@@ -12,9 +12,9 @@ class RedactingFormatter(logging.Formatter):
     """ Redacting Formatter class
         """
 
-    REDACTION = "***"
-    FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
-    SEPARATOR = ";"
+    REDACTION: str = "***"
+    FORMAT: str = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
+    SEPARATOR: str = ";"
 
     def __init__(self, fields: List[str]) -> None:
         """function"""
@@ -23,7 +23,7 @@ class RedactingFormatter(logging.Formatter):
 
     def format(self, record: logging.LogRecord) -> str:
         """Format the log record by obfuscating specified fields."""
-        record.msg: str = filter_datum(self.fields, RedactingFormatter.REDACTION,
+        record.msg = filter_datum(self.fields, RedactingFormatter.REDACTION,
                                   record.msg, RedactingFormatter.SEPARATOR)
         return super().format(record)
 
