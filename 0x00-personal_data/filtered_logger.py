@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
-""""""
-from re import sub
-from typing import List
+"""
+This module provides a function to obfuscate specified fields
+in a log message.
+"""
+import re
 
 
-def filter_datum(fields: List[str], redaction: str, message: str, separator: str) -> str:
-    """"""
+def filter_datum(fields, redaction, message, separator):
+    """Function"""
     pattern = r'(' + '|'.join(fields) + r')=[^' + f'{separator}' + r']+'
-    return sub(pattern, r'\1=' + redaction, message)
+    return re.sub(pattern, r'\1=' + redaction, message)
