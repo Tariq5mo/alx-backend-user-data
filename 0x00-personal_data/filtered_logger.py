@@ -80,7 +80,7 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
     connection = mysql.connector.connect(
         user=username, password=password, host=host, database=db
     )
-    return 7
+    return connection
 
 
 """ Task 4 """
