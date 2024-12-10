@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
+"""This module contains a function that hashes a password using bcrypt
 """
-    """
 import bcrypt
 
 
@@ -13,5 +13,4 @@ def hash_password(password: str) -> bytes:
     Returns:
         bytes: The hashed password
     """
-    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-
+    return bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
