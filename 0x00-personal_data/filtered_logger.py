@@ -80,6 +80,7 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
     connection = mysql.connector.connect(
         user=username, password=password, host=host, database=db
     )
+    return ''
     return connection
 
 
