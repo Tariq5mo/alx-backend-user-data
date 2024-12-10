@@ -6,6 +6,8 @@ in a log message.
 import re
 from typing import List
 import logging
+import os
+import mysql.connector
 
 
 """ Task 2 """
@@ -50,9 +52,7 @@ def filter_datum(
 
 def get_logger() -> logging.Logger:
     """
-
-    Returns:
-        logging.Logger: _description_
+    Returns a logging.Logger object configured for user data logging.
     """
     logger: logging.Logger = logging.getLogger("user_data")
     logger.setLevel(logging.INFO)
@@ -60,8 +60,53 @@ def get_logger() -> logging.Logger:
 
     handler = logging.StreamHandler()
     handler.setLevel(logging.INFO)
-    formater = RedactingFormatter(fields=list(PII_FIELDS))
-    handler.setFormatter(formater)
+    formatter = RedactingFormatter(fields=list(PII_FIELDS))
+    handler.setFormatter(formatter)
 
     logger.addHandler(handler)
     return logger
+
+
+""" Task 3 """
+
+
+def get_db() -> mysql.connector.connection.MySQLConnection:
+    """This function returns a connector to the database."""
+    username = os.getenv("PERSONAL_DATA_DB_USERNAME", "root")
+    password = os.getenv("PERSONAL_DATA_DB_PASSWORD", "")
+    host = os.getenv("PERSONAL_DATA_DB_HOST", "localhost")
+    db = os.getenv("PERSONAL_DATA_DB_NAME")
+
+    connection = mysql.connector.connect(
+        user=username, password=password, host=host, database=db
+    )
+    return connection
+
+""" Task 4 """
+if __name__ == "__main__":
+    conn = get_db()
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM users")
+    for data in cur.fetchall():
+        l: List[str] = []
+        n = data[0]
+        l.append(f"name={n};")
+        em = data[1]
+        l.append(f"email={em};")
+        ph = data[2]
+        l.append(f"phone={ph};")
+        ssn = data[3]
+        l.append(f"ssn={ssn};")
+        p = data[4]
+        l.append(f"password={p};")
+        ip = data[5]
+        l.append(f"ip={ip};")
+        l_log = data[6]
+        l.append(f"last_login={l_log};")
+        u_ag = data[7]
+        l.append(f"user_agent={u_ag};")
+        logger = get_logger()
+        logger.info(" ".join(l))
+
+    cur.close()
+    conn.close()
