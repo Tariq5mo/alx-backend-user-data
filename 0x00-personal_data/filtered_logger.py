@@ -84,30 +84,34 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
 
 
 """ Task 4 """
-if __name__ == "__main__":
+
+
+def main():
+    """ Main function """
     conn = get_db()
     cur = conn.cursor()
     cur.execute("SELECT * FROM users")
+    logger = get_logger()
+
     for data in cur.fetchall():
-        l: List[str] = []
-        n = data[0]
-        l.append(f"name={n};")
-        em = data[1]
-        l.append(f"email={em};")
-        ph = data[2]
-        l.append(f"phone={ph};")
-        ssn = data[3]
-        l.append(f"ssn={ssn};")
-        p = data[4]
-        l.append(f"password={p};")
-        ip = data[5]
-        l.append(f"ip={ip};")
-        l_log = data[6]
-        l.append(f"last_login={l_log};")
-        u_ag = data[7]
-        l.append(f"user_agent={u_ag};")
-        logger = get_logger()
-        logger.info(" ".join(l))
+        user_data = {
+            "name": data[0],
+            "email": data[1],
+            "phone": data[2],
+            "ssn": data[3],
+            "password": data[4],
+            "ip": data[5],
+            "last_login": data[6],
+            "user_agent": data[7]
+        }
+        log_message = "; ".join([f"{key}={value}"
+                                 for key, value
+                                 in user_data.items()])
+        logger.info(log_message)
 
     cur.close()
     conn.close()
+
+
+if __name__ == "__main__":
+    main()
