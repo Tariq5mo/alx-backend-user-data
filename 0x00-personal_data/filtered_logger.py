@@ -82,6 +82,7 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
     )
     return connection
 
+
 """ Task 4 """
 if __name__ == "__main__":
     conn = get_db()
