@@ -1,42 +1,165 @@
-# Simple API
+# 0x01. Basic Authentication
 
-Simple HTTP API for playing with `User` model.
+This project is part of the ALX Software Engineering program, focusing on implementing Basic Authentication on a simple API. It introduces key concepts in authentication, Base64 encoding, and secure API practices.
 
+## Table of Contents
 
-## Files
+- [Introduction](#introduction)
+- [Concepts and Skills](#concepts-and-skills)
+- [Requirements](#requirements)
+- [Project Tasks](#project-tasks)
+- [Usage](#usage)
+- [Author](#author)
 
-### `models/`
+---
 
-- `base.py`: base of all models of the API - handle serialization to file
-- `user.py`: user model
+## Introduction
 
-### `api/v1`
+In this project, you will learn what the authentication process means and implement Basic Authentication on a simple API. This project explores how to secure an API using Basic Authentication and understand the underlying mechanisms.
 
-- `app.py`: entry point of the API
-- `views/index.py`: basic endpoints of the API: `/status` and `/stats`
-- `views/users.py`: all users endpoints
+### Objectives
 
+- Understand the authentication process.
+- Implement Basic Authentication.
+- Learn about Base64 encoding and HTTP headers.
 
-## Setup
+**Key Topics Covered:**
 
-```
-$ pip3 install -r requirements.txt
-```
+- Authentication and Authorization
+- Base64 encoding
+- HTTP headers and status codes
+- Flask framework
 
+---
 
-## Run
+## Concepts and Skills
 
-```
-$ API_HOST=0.0.0.0 API_PORT=5000 python3 -m api.v1.app
-```
+### Key Topics
 
+1. **Authentication**:
+   - What authentication means.
+   - Understanding Basic Authentication and its implementation.
 
-## Routes
+2. **Base64 Encoding**:
+   - How to encode and decode strings in Base64.
+   - Using Base64 for HTTP headers.
 
-- `GET /api/v1/status`: returns the status of the API
-- `GET /api/v1/stats`: returns some stats of the API
-- `GET /api/v1/users`: returns the list of users
-- `GET /api/v1/users/:id`: returns an user based on the ID
-- `DELETE /api/v1/users/:id`: deletes an user based on the ID
-- `POST /api/v1/users`: creates a new user (JSON parameters: `email`, `password`, `last_name` (optional) and `first_name` (optional))
-- `PUT /api/v1/users/:id`: updates an user based on the ID (JSON parameters: `last_name` and `first_name`)
+3. **HTTP Headers**:
+   - Understanding the Authorization header.
+   - Handling HTTP status codes for authentication.
+
+4. **Python Programming**:
+   - Writing secure and efficient code.
+   - Adhering to the **PEP 8 style guide**.
+
+---
+
+## Requirements
+
+### General
+
+- **Allowed editors**: `vi`, `vim`, `emacs`.
+- Code will be interpreted/compiled on **Ubuntu 18.04 LTS** using Python 3.7.
+- Adhere to the **PEP 8 style guide** (version 2.5).
+- No external module imports unless specified.
+- All files should:
+  - End with a new line.
+  - Be executable.
+  - Include proper documentation for modules, classes, and functions.
+
+### Repository Structure
+
+- **GitHub repository**: [alx-backend-user-data](https://github.com/Tariq5mo/alx-backend-user-data)
+- **Directory**: `0x01-Basic_authentication`
+- **Files**:
+  - `api/v1/app.py`: Entry point of the API.
+  - `api/v1/views/index.py`: Basic endpoints of the API.
+  - `api/v1/views/users.py`: User-related endpoints.
+  - `api/v1/auth/auth.py`: Base class for authentication.
+  - `api/v1/auth/basic_auth.py`: Basic Authentication class.
+
+---
+
+## Project Tasks
+
+### **0. Simple-basic-API**
+
+Setup and start the API server.
+
+### **1. Error handler: Unauthorized**
+
+Add an error handler for 401 status code.
+
+### **2. Error handler: Forbidden**
+
+Add an error handler for 403 status code.
+
+### **3. Auth class**
+
+Create a base class for managing API authentication.
+
+### **4. Define which routes don't need authentication**
+
+Update the method to exclude certain paths from authentication.
+
+### **5. Request validation!**
+
+Validate requests to secure the API.
+
+### **6. Basic auth**
+
+Create a BasicAuth class inheriting from Auth.
+
+### **7. Basic - Base64 part**
+
+Extract the Base64 part of the Authorization header.
+
+### **8. Basic - Base64 decode**
+
+Decode the Base64 string from the Authorization header.
+
+### **9. Basic - User credentials**
+
+Extract user credentials from the decoded Base64 string.
+
+### **10. Basic - User object**
+
+Retrieve the User instance based on email and password.
+
+### **11. Basic - Overload current_user - and BOOM!**
+
+Complete the Basic Authentication implementation.
+
+---
+
+## Usage
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/Tariq5mo/alx-backend-user-data.git
+   ```
+
+2. Navigate to the project directory:
+
+   ```bash
+   cd 0x01-Basic_authentication
+   ```
+
+3. Install the dependencies:
+
+   ```bash
+   pip3 install -r requirements.txt
+   ```
+
+4. Run the API server:
+
+   ```bash
+   API_HOST=0.0.0.0 API_PORT=5000 AUTH_TYPE=basic_auth python3 -m api.v1.app
+   ```
+
+---
+
+## Author
+
+This project was completed by **Tariq Omer**, a student of the ALX Software Engineering program specializing in back-end development. Connect with me on [GitHub](https://github.com/Tariq5mo).
