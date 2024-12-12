@@ -6,6 +6,8 @@ Task 3
 from flask import request
 from typing import TypeVar, List
 
+import flask
+
 
 class Auth:
     """
@@ -43,9 +45,11 @@ class Auth:
         Returns:
             str: None, indicating no authorization header is present.
         """
-        return None
+        if request is None:
+            return None
+        return request.headers.get('Authorization')
 
-    def current_user(self, request=None) -> TypeVar("User"):
+    def current_user(self, request=None) -> TypeVar["User"]:
         """
         Retrieves the current user from the request.
 
