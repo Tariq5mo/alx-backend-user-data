@@ -81,10 +81,8 @@ class BasicAuth(Auth):
     def user_object_from_credentials(
         self, user_email: str, user_pwd: str
     ) -> TypeVar("User"):
-        """
-
-        Args:
-            self (_type_): _description_
+        """This method returns the User instance
+        based on the email and password.
         """
         if isinstance(user_email, str) and isinstance(user_pwd, str):
             all_objs_email: List[User] = User.search({"email": user_email})
@@ -101,7 +99,7 @@ class BasicAuth(Auth):
         return None
 
     def current_user(self, request=None) -> TypeVar("User"):
-        """THis"""
+        """THis method overloads the current_user method"""
         header = self.authorization_header(request)
         extract_64 = self.extract_base64_authorization_header(header)
         email_pwd_str = self.decode_base64_authorization_header(extract_64)
