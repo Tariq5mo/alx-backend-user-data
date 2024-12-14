@@ -51,7 +51,7 @@ def Forbidden_handler(error):
 
 
 def filter_each_request():
-    """ """
+    """ This function will be called before each request """
     if auth is not None:
         if (
             auth.require_auth(
