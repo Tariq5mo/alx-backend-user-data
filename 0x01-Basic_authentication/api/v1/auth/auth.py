@@ -6,9 +6,6 @@ Task 3
 from flask import request
 from typing import TypeVar, List
 
-import flask
-
-
 class Auth:
     """
     Template for all authentication systems.
@@ -49,7 +46,7 @@ class Auth:
             return None
         return request.headers.get('Authorization')
 
-    def current_user(self, request=None) -> TypeVar["User"]:
+    def current_user(self, request=None) -> TypeVar("User"):
         """
         Retrieves the current user from the request.
 
