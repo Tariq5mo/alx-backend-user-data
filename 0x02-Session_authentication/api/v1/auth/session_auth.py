@@ -4,6 +4,7 @@ Session Authentication Module
 """
 from api.v1.auth.auth import Auth
 import uuid
+import os
 
 
 class SessionAuth(Auth):
@@ -46,4 +47,19 @@ class SessionAuth(Auth):
         """
         if isinstance(session_id, str):
             return SessionAuth.user_id_by_session_id.get(session_id)
+        return None
+
+    def session_cookie(self, request=None):
+        """
+        This is a function
+        Args:
+            request (_type_, optional): _description_. Defaults to None.
+
+        Returns:
+            _type_: _description_
+        """
+        if request is not None and isinstance(request, str):
+            cookie_name = os.getenv('SESSION_NAME')
+            cookie_value = request.cookies.get(cookie_name)
+            return cookie_value
         return None
