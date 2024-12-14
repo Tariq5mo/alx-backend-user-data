@@ -39,18 +39,18 @@ class BasicAuth(Auth):
         self, base64_authorization_header: str
     ) -> str:
         """
+        Decodes the Base64 part of
+        the Authorization header for Basic Authentication.
 
         Args:
-            base64_authorization_header (str): _description_
+            base64_authorization_header (str): The Base64 authorization header.
 
         Returns:
-            str: _description_
+            str: The decoded value as a UTF8 string, or None if invalid.
         """
         try:
             if isinstance(base64_authorization_header, str):
-                decoded_str = base64.b64decode(
-                    base64_authorization_header
-                )
+                decoded_str = base64.b64decode(base64_authorization_header)
                 return decoded_str.decode("utf-8")
             return None
         except Exception:
