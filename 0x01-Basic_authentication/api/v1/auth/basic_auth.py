@@ -95,7 +95,7 @@ class BasicAuth(Auth):
         return None
 
     def current_user(self, request=None) -> TypeVar("User"):
-        """ """
+        """ THis """
         header = self.authorization_header(request)
         extract_64 = self.extract_base64_authorization_header(header)
         email_pwd_str = self.decode_base64_authorization_header(
