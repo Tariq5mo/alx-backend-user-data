@@ -16,7 +16,6 @@ CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 
 auth = None
 
-
 auth = os.getenv("AUTH_TYPE")
 if auth == "auth":
     from api.v1.auth.auth import Auth
@@ -47,7 +46,9 @@ def Forbidden_handler(error):
 
 
 def filter_each_request():
-    """ """
+    """
+    Filter each request before processing.
+    """
     if auth is not None:
         if (
             auth.require_auth(

@@ -40,7 +40,7 @@ class Auth:
                                                             Defaults to None.
 
         Returns:
-            str: None, indicating no authorization header is present.
+            str: The value of the authorization header if present, otherwise None.
         """
         if request is None:
             return None
