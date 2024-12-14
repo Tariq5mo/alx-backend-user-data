@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 """
-
-Returns:
-    _type_: _description_
+Basic Authentication module.
 """
 from typing import List, Tuple, TypeVar
 from api.v1.auth.auth import Auth
@@ -12,9 +10,7 @@ import base64
 
 class BasicAuth(Auth):
     """
-
-    Args:
-        Auth (_type_): _description_
+    Basic Authentication class.
     """
 
     def extract_base64_authorization_header(
@@ -68,7 +64,7 @@ class BasicAuth(Auth):
 
     def user_object_from_credentials(
         self, user_email: str, user_pwd: str
-    ) -> TypeVar("User"): # type: ignore
+    ) -> TypeVar("User"):
         """
 
         Args:
@@ -96,4 +92,3 @@ class BasicAuth(Auth):
         email_pwd_str = self.decode_base64_authorization_header(extract_64)
         email_pwd = self.extract_user_credentials(email_pwd_str)
         return self.user_object_from_credentials(email_pwd[0], email_pwd[1])
-
