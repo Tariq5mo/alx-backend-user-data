@@ -4,6 +4,8 @@ Module for API authentication management.
 """
 from flask import request
 from typing import TypeVar, List
+import os
+
 
 class Auth:
     """
@@ -56,4 +58,23 @@ class Auth:
         Returns:
             TypeVar("User"): None, indicating no current user is present.
         """
+        return None
+
+    def session_cookie(self, request=None):
+        """
+        Retrieves a session cookie value from the request.
+
+        Args:
+            request (flask.Request, optional): The Flask request object.
+                                                            Defaults to None.
+
+        Returns:
+            str: The value of the session cookie,
+                                    or None if the cookie is not present.
+        """
+        if request is not None:
+            cookie_name = os.getenv('SESSION_NAME')
+            print(cookie_name)
+            cookie_value = request.cookies.get(cookie_name)
+            return cookie_value
         return None
