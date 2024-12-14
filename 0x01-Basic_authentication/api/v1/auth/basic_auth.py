@@ -43,7 +43,8 @@ class BasicAuth(Auth):
         the Authorization header for Basic Authentication.
 
         Args:
-            base64_authorization_header (str): The Base64 authorization header.
+            base64_authorization_header (str):
+                The Base64 authorization header.
 
         Returns:
             str: The decoded value as a UTF8 string, or None if invalid.
