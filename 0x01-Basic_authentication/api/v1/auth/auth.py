@@ -49,14 +49,5 @@ class Auth:
         return request.headers.get("Authorization")
 
     def current_user(self, request=None) -> TypeVar("User"):
-        """
-        Retrieves the current user from the request.
-
-        Args:
-            request (flask.Request, optional): The Flask request object.
-                                                            Defaults to None.
-
-        Returns:
-            TypeVar("User"): None, indicating no current user is present.
-        """
+        """ The current user method """
         return None
