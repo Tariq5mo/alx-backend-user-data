@@ -96,12 +96,20 @@ class BasicAuth(Auth):
             return None
         if user_pwd is None or not isinstance(user_pwd, str):
             return None
-        all_objs_email: List[User] = User.search({"email": user_email})
+
+        try:
+            User.load_from_file()  # Ensure User data is loaded
+            all_objs_email = User.search({"email": user_email})
+        except KeyError:
+            return None
+
         if not all_objs_email:
             return None
-        for obj in all_objs_email:
-            if obj.is_valid_password(user_pwd):
-                return obj
+
+        for user in all_objs_email:
+            if user.is_valid_password(user_pwd):
+                return user
+
         return None
 
     def current_user(self, request=None) -> TypeVar("User"):
