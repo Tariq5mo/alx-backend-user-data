@@ -83,23 +83,29 @@ class BasicAuth(Auth):
     ) -> TypeVar("User"):
         """This method returns the User instance
         based on the email and password.
+
+        Args:
+            user_email (str): The user's email.
+            user_pwd (str): The user's password.
+
+        Returns:
+            User: The User instance, or None if invalid.
         """
-        if isinstance(user_email, str) and isinstance(user_pwd, str):
-            all_objs_email: List[User] = User.search({"email": user_email})
-            if all_objs_email == []:
-                return None
-            all_objs_pwd: List[User] = [
-                obj
-                for obj in all_objs_email
-                if obj.is_valid_password(user_pwd)
-            ]
-            if all_objs_pwd == []:
-                return None
-            return all_objs_pwd[0]
+        if user_email is None or not isinstance(user_email, str):
+            return None
+        if user_pwd is None or not isinstance(user_pwd, str):
+            return None
+        all_objs_email: List[User] = User.search({"email": user_email})
+        if not all_objs_email:
+            return None
+        for obj in all_objs_email:
+            if obj.is_valid_password(user_pwd):
+                return obj
         return None
 
     def current_user(self, request=None) -> TypeVar("User"):
-        """THis method overloads the current_user method"""
+        """THis method overloads the current_user method
+        """
         header = self.authorization_header(request)
         extract_64 = self.extract_base64_authorization_header(header)
         email_pwd_str = self.decode_base64_authorization_header(extract_64)
