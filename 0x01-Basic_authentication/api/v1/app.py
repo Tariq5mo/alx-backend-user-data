@@ -53,7 +53,11 @@ def filter_each_request():
         if (
             auth.require_auth(
                 request.path,
-                ["/api/v1/status/", "/api/v1/unauthorized/", "/api/v1/forbidden/"],
+                [
+                    "/api/v1/status/",
+                    "/api/v1/unauthorized/",
+                    "/api/v1/forbidden/",
+                ],
             )
             is True
         ):

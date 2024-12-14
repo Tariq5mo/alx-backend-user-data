@@ -6,6 +6,7 @@ Task 3
 from flask import request
 from typing import TypeVar, List
 
+
 class Auth:
     """
     Template for all authentication systems.
@@ -25,8 +26,8 @@ class Auth:
         """
         if path is None or excluded_paths is None or excluded_paths == []:
             return True
-        if path.endswith('/') is False:
-            path += '/'
+        if path.endswith("/") is False:
+            path += "/"
         if path in excluded_paths:
             return False
         return True
@@ -44,7 +45,7 @@ class Auth:
         """
         if request is None:
             return None
-        return request.headers.get('Authorization')
+        return request.headers.get("Authorization")
 
     def current_user(self, request=None) -> TypeVar("User"):
         """
