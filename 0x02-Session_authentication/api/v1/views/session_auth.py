@@ -11,7 +11,8 @@ from models.user import User
     "/auth_session/login", methods=["POST"], strict_slashes=False
 )
 def login_route() -> Tuple[str, int]:
-    """login route"""
+    """login route to authenticate a user
+    """
     email: str = request.form.get("email")
     if not email:
         return jsonify({"error": "email missing"}), 400
