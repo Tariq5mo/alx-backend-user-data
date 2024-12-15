@@ -3,7 +3,7 @@
 """
 from typing import List, Tuple
 from api.v1.views import app_views
-from flask import request, jsonify
+from flask import request, jsonify, abort
 from models.user import User
 
 
@@ -45,5 +45,5 @@ def delete_session():
     """
     from api.v1.app import auth
     if auth.destroy_session(request) is False:
-        return jsonify({"error": "Unauthorized"}), 401
+        abort(404)
     return jsonify({}), 200
