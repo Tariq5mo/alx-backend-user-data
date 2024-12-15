@@ -8,7 +8,7 @@ from models.user import User
 
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
 def login_route():
-    """
+    """login route
     """
     email: str = request.form.get('email')
     if not email:
