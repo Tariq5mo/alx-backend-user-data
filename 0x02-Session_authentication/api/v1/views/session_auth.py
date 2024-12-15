@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""
+"""This module contains the login route
 """
 from typing import List, Tuple
 from api.v1.views import app_views
