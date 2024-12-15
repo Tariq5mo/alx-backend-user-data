@@ -51,7 +51,7 @@ def Forbidden_handler(error):
 
 
 def filter_each_request():
-    """ This function will be called before each request """
+    """This function will be called before each request"""
     if auth is not None:
         if (
             auth.require_auth(
@@ -60,11 +60,15 @@ def filter_each_request():
                     "/api/v1/status/",
                     "/api/v1/unauthorized/",
                     "/api/v1/forbidden/",
+                    "/api/v1/auth_session/login/",
                 ],
             )
             is True
         ):
-            if auth.authorization_header(request) is None:
+            if (
+                auth.authorization_header(request) is None
+                and auth.session_cookie(request) is None
+            ):
                 abort(401)
             if auth.current_user(request) is None:
                 abort(403)
