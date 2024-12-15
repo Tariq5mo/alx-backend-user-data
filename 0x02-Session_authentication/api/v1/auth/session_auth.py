@@ -2,6 +2,7 @@
 """
 Session Authentication Module
 """
+import re
 from api.v1.auth.auth import Auth
 import uuid
 
@@ -64,3 +65,19 @@ class SessionAuth(Auth):
         session_id = self.session_cookie(request)
         user_id = self.user_id_for_session_id(session_id)
         return User.get(user_id)
+
+    def destroy_session(self, request=None):
+        """Deletes the user session / log-out.
+
+        Args:
+            request (flask.request, optional) . Defaults to None.
+        """
+        if request:
+            session_id = self.session_cookie(request)
+            if session_id:
+                user_id = self.user_id_for_session_id(session_id)
+                if user_id:
+                    del SessionAuth.user_id_by_session_id[session_id]
+                    return True
+        return False
+
