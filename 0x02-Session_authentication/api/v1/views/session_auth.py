@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
 """
-from typing import List
+from typing import List, Tuple
 from api.v1.views import app_views
 from flask import request, jsonify
 from models.user import User
 
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
-def login_route() -> str:
+def login_route() -> Tuple[str, int]:
     """login route
     """
     email: str = request.form.get('email')
