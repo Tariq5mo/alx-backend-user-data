@@ -48,7 +48,7 @@ class DB:
         se.commit()
         return user
 
-    def find_user_by(self, **kwargs):
+    def find_user_by(self, **kwargs) -> User:
         """This method should take in arbitrary keyword arguments and return
         the first row found in the users table as filtered by these arguments.
         """
