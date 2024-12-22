@@ -75,9 +75,10 @@ class DB:
         """
         session = self._session
         try:
-            obj = self.find_user_by(id=user_id)
-            obj.__dict__.update(kwargs)
-            session.commit()
+            for key, value in kwargs.items():
+                user = session.query(User).filter_by(id=user_id).one()
+                setattr(user, key, value)
+                session.commit()
             return None
         except ValueError:
             raise ValueError
