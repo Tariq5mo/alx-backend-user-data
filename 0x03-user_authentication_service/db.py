@@ -75,8 +75,10 @@ class DB:
         """
         session = self._session
         try:
+            user = self.find_user_by(id=user_id)
             for key, value in kwargs.items():
-                user = self.find_user_by(id=user_id)
+                if not hasattr(user, key):
+                    raise ValueError
                 setattr(user, key, value)
                 session.commit()
             return None
