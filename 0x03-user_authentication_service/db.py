@@ -9,6 +9,7 @@ from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.exc import InvalidRequestError
 
 from user import Base, User
+import user
 
 
 class DB:
@@ -31,6 +32,8 @@ class DB:
             DBSession = sessionmaker(bind=self._engine)
             self.__session = DBSession()
         return self.__session
+
+    """ Task 2"""
 
     def add_user(self, email: str, hashed_password: str) -> User:
         """Add a user to the database.
@@ -59,3 +62,21 @@ class DB:
             raise NoResultFound
         except InvalidRequestError:
             raise InvalidRequestError
+
+    """ Task 3"""
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """This method should take a required integer user_id argument and
+        arbitrary keyword arguments, and update the users table record with
+        the corresponding user_id.
+
+        Args:
+            user_id (int): The user ID.
+        """
+        session = self._session
+        try:
+            session.query(User).filter_by(id=user_id).update(kwargs)
+            session.commit()
+            return None
+        except ValueError:
+            raise ValueError
