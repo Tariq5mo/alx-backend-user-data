@@ -75,7 +75,8 @@ class DB:
         """
         session = self._session
         try:
-            session.query(User).filter_by(id=user_id).update(kwargs)
+            obj = self.find_user_by(id=user_id)
+            obj.__dict__.update(kwargs)
             session.commit()
             return None
         except ValueError:
