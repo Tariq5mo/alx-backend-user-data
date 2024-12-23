@@ -129,7 +129,7 @@ def update_password() -> Tuple[str, int]:
         new_password = request.form.get("new_password")
         if not email or not reset_token or not new_password:
             abort(403)
-        auth.update_password(reset_token, new_password)
+        AUTH.update_password(reset_token, new_password)
         return (
             jsonify({"email": f"{email}", "message": "Password updated"}),
             200,
