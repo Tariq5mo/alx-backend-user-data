@@ -7,6 +7,7 @@ from sqlalchemy.orm.exc import NoResultFound
 
 
 app = Flask(__name__)
+AUTH = Auth()  # Instantiate AUTH here
 auth = Auth()
 
 
