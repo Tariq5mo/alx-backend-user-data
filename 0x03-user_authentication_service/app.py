@@ -100,6 +100,22 @@ def profile() -> Tuple[str, int]:
     except Exception:
         abort(403)
 
+""" Task 17 """
+
+
+@app.route("/reset_password", methods=["POST"], strict_slashes=False)
+def get_reset_password_token() -> Tuple[str, int]:
+    """Generates a reset password token and returns it in a JSON payload.
+    """
+    try:
+        email = request.form.get("email")
+        token = auth.get_reset_password_token(email)
+        if not token:
+            abort(403)
+        return jsonify({"email": f"{email}", "reset_token": f"{token}"}), 200
+    except Exception:
+        abort(403)
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")
