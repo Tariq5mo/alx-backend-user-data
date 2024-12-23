@@ -56,7 +56,7 @@ def login() -> Response:
             resp.set_cookie("session_id", session_id)
             return resp
         abort(401)
-    except Exception:
+    except Exception as e:
         abort(401)
 
     return ''
