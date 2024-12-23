@@ -51,9 +51,8 @@ class Auth:
         """
         try:
             obj = self._db.find_user_by(email=email)
-            boo = bcrypt.checkpw(password.encode("utf-8"), obj.hashed_password)
-            return boo
-        except NoResultFound:
+            return bcrypt.checkpw(password.encode("utf-8"), obj.hashed_password)
+        except Exception:
             return False
 
     """ Task 10 """
