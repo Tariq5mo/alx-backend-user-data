@@ -40,7 +40,7 @@ def users():
 
 
 @app.route('/sessions', methods=['POST'], strict_slashes=False)
-def sessions():
+def login():
     """This route checks if the email and password provided are valid
     credentials.
     return: a JSON payload if the email and password are valid
