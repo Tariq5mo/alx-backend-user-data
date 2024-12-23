@@ -132,7 +132,7 @@ def update_password() -> Tuple[str, int]:
             abort(403)
         auth.update_password(reset_token, new_password)
         return jsonify({"email": f"{email}", "message": "Password updated"}), 200
-    except Exception:
+    except Exception as e:
         abort(403)
 
 
