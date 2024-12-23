@@ -2,7 +2,7 @@
 """This module contains the minimal Flask app
 """
 from flask import Flask, Response, jsonify, request, session
-from flask import make_response, abort, redirect
+from flask import make_response, abort, url_for, redirect
 from auth import Auth
 from sqlalchemy.orm.exc import NoResultFound
 
@@ -74,7 +74,7 @@ def logout() -> Response:
     obj = auth._db.find_user_by(email=email)
     if obj:
         auth.destroy_session(obj.id)
-        return redirect("/")
+        return redirect(url_for("/"))
     abort(403)
 
 
