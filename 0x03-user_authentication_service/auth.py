@@ -51,7 +51,8 @@ class Auth:
         """
         try:
             obj = self._db.find_user_by(email=email)
-            return bcrypt.checkpw(password.encode("utf-8"), obj.hashed_password)
+            return bcrypt.checkpw(password.encode("utf-8"),
+                                  obj.hashed_password)
         except Exception:
             return False
 
@@ -73,6 +74,8 @@ class Auth:
             obj.session_id = session_id
             return session_id
 
+    """ Task 12 """
+
     def get_user_from_session_id(self, session_id: str) -> str:
         """This method should check the session ID provided and return
         the user's email address.
@@ -89,6 +92,22 @@ class Auth:
             return obj.email
         except Exception:
             return None
+
+    """ Task 13 """
+
+    def destroy_session(self, user_id: int):
+        """
+
+        Args:
+            user_id (int): _description_
+
+        Returns:
+            _type_: _description_
+        """
+        obj = self._db.find_user_by(id=user_id)
+        obj.session_id = None
+        return None
+
 
 
 """ Task 9"""
