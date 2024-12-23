@@ -56,6 +56,24 @@ class Auth:
         except NoResultFound:
             return False
 
+    """ Task 10 """
+
+    def create_session(self, email: str) -> str:
+        """This method should create a new session for the user with the
+        provided email. It should return the session ID.
+
+        Args:
+            email (str): The user's email address.
+
+        Returns:
+            str: The newly created session ID.
+        """
+        if email:
+            obj = self._db.find_user_by(email=email)
+            session_id = _generate_uuid()
+            obj.session_id = session_id
+            return session_id
+
 
 """ Task 9"""
 
