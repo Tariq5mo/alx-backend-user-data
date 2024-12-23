@@ -71,6 +71,8 @@ def logout() -> Response:
     """
     try:
         session_id = request.cookies.get("session_id")
+        if not session_id:
+            abort(403)
         obj = auth._db.find_user_by(session_id=session_id)
         if obj:
             auth.destroy_session(obj.id)
