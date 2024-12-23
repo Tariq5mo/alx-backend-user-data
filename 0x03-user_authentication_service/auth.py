@@ -112,7 +112,9 @@ class Auth:
     """ Task 16 """
 
     def get_reset_password_token(self, email: str):
-        """
+        """This method should generate a reset password token and update
+        the user's reset_token attribute with it. It should then return
+        the reset password token.
 
         Args:
             email (str): The user's email address.
@@ -126,7 +128,7 @@ class Auth:
             obj.reset_token = reset_token
             return reset_token
         except Exception:
-            raise ValueError
+            raise ValueError()
 
 
 """ Task 9"""
