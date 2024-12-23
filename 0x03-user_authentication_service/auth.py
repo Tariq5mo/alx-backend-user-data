@@ -60,7 +60,7 @@ class Auth:
 """ Task 9"""
 
 
-def _generate_uuid():
+def _generate_uuid() -> str:
     """This method should generate a UUID.
     """
     return str(uuid.uuid4())
