@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Auth module
 """
-from turtle import reset
 import bcrypt
 from db import DB
 from bcrypt import gensalt, hashpw
@@ -111,7 +110,7 @@ class Auth:
 
     """ Task 16 """
 
-    def get_reset_password_token(self, email: str):
+    def get_reset_password_token(self, email: str) -> str:
         """This method should generate a reset password token and update
         the user's reset_token attribute with it. It should then return
         the reset password token.
