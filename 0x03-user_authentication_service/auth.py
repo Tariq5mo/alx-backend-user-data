@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Auth module
 """
+from turtle import reset
 import bcrypt
 from db import DB
 from bcrypt import gensalt, hashpw
@@ -107,6 +108,25 @@ class Auth:
         obj = self._db.find_user_by(id=user_id)
         obj.session_id = None
         return None
+
+    """ Task 16 """
+
+    def get_reset_password_token(self, email: str):
+        """
+
+        Args:
+            email (str): The user's email address.
+
+        Returns:
+            str: The reset password token.
+        """
+        try:
+            obj = self._db.find_user_by(email=email)
+            reset_token = _generate_uuid()
+            obj.reset_token = reset_token
+            return reset_token
+        except Exception:
+            raise ValueError
 
 
 """ Task 9"""
