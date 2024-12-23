@@ -73,6 +73,23 @@ class Auth:
             obj.session_id = session_id
             return session_id
 
+    def get_user_from_session_id(self, session_id: str) -> str:
+        """This method should check the session ID provided and return
+        the user's email address.
+        But if the session ID is invalid, it should return None.
+
+        Args:
+            session_id (str): The session ID.
+
+        Returns:
+            str: The user's email address.
+        """
+        try:
+            obj = self._db.find_user_by(session_id=session_id)
+            return obj.email
+        except Exception:
+            return None
+
 
 """ Task 9"""
 
