@@ -50,9 +50,9 @@ def login() -> Response:
         password = request.form.get('password')
         if auth.valid_login(email, password):
             sessions_id = auth.create_session(email)
-            resp = make_response(
+            resp = make_response(jsonify(
                 {"email": f"{email}", "message": "logged in"}
-                )
+                ))
             resp.set_cookie("session_id", sessions_id)
             return resp
         abort(401)
@@ -63,4 +63,4 @@ def login() -> Response:
 
 
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port="5000")
+    app.run(host="0.0.0.0", port="5000")
