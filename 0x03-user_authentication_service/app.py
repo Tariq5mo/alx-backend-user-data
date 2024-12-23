@@ -46,16 +46,19 @@ def login():
     return: a JSON payload if the email and password are valid
     and a 401 status code if the email and password are not valid
     """
-    email = request.form.get('email')
-    password = request.form.get('password')
-    if auth.valid_login(email, password):
-        sessions_id = auth.create_session(email)
-        resp = make_response(jsonify(
-            {"email": f"{email}", "message": "logged in"}
-            ))
-        resp.set_cookie("session_id", sessions_id)
-        return resp
-    abort(401)
+    try:
+        email = request.form.get('email')
+        password = request.form.get('password')
+        if auth.valid_login(email, password):
+            sessions_id = auth.create_session(email)
+            resp = make_response(jsonify(
+                {"email": f"{email}", "message": "logged in"}
+                ))
+            resp.set_cookie("session_id", sessions_id)
+            return resp
+        abort(401)
+    except Exception:
+        abort(401)
 
     return ''
 
