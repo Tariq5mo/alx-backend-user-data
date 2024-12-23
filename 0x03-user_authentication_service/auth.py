@@ -129,6 +129,27 @@ class Auth:
         except Exception:
             raise ValueError()
 
+    """ Task 18 """
+
+    def update_password(self, reset_token: str, password: str) -> None:
+        """This method should update the user's
+        password with the provided reset
+        token and password.
+
+        Args:
+            reset_token (str): The reset token
+            password (str): The new password
+        """
+        try:
+            obj = self._db.find_user_by(reset_token=reset_token)
+            if obj:
+                new_pwd = hashpw(password.encode("utf-8"), gensalt())
+                obj.hashed_password = new_pwd
+                obj.reset_token = None
+                return None
+        except Exception:
+            raise ValueError()
+
 
 """ Task 9"""
 
