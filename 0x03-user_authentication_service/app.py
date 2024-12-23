@@ -13,9 +13,9 @@ AUTH = Auth()
 auth = Auth()
 
 
-@app.route('/', methods=['GET'], strict_slashes=False)
+@app.route("/", methods=["GET"], strict_slashes=False)
 def hello() -> str:
-    """ GET /
+    """GET /
     Return: a JSON payload
     """
     return jsonify({"message": "Bienvenue"})
@@ -24,13 +24,13 @@ def hello() -> str:
 """ Task 7 """
 
 
-@app.route('/users', methods=['POST'], strict_slashes=False)
+@app.route("/users", methods=["POST"], strict_slashes=False)
 def users():
-    """ POST /users
+    """POST /users
     Return: a JSON payload
     """
-    email = request.form.get('email')  # Get email from form data
-    password = request.form.get('password')  # Get password from form
+    email = request.form.get("email")  # Get email from form data
+    password = request.form.get("password")  # Get password from form
     try:
         auth.register_user(email, password)
         return jsonify({"email": f"{email}", "message": "user created"})
@@ -41,7 +41,7 @@ def users():
 """ Task 11 """
 
 
-@app.route('/sessions', methods=['POST'], strict_slashes=False)
+@app.route("/sessions", methods=["POST"], strict_slashes=False)
 def login() -> Response:
     """This route checks if the email and password provided are valid
     credentials.
@@ -49,13 +49,13 @@ def login() -> Response:
     and a 401 status code if the email and password are not valid
     """
     try:
-        email = request.form.get('email')
-        password = request.form.get('password')
+        email = request.form.get("email")
+        password = request.form.get("password")
         if auth.valid_login(email, password):
             session_id = auth.create_session(email)
-            resp = make_response(jsonify(
-                {"email": f"{email}", "message": "logged in"}
-                ))
+            resp = make_response(
+                jsonify({"email": f"{email}", "message": "logged in"})
+            )
             resp.set_cookie("session_id", session_id)
             return resp
         abort(401)
@@ -87,8 +87,7 @@ def logout() -> Response:
 
 @app.route("/profile", methods=["GET"], strict_slashes=False)
 def profile() -> Tuple[str, int]:
-    """This route returns the profile of the user.
-    """
+    """This route returns the profile of the user."""
     try:
         session_id = request.cookies.get("session_id")
         if not session_id:
@@ -106,8 +105,7 @@ def profile() -> Tuple[str, int]:
 
 @app.route("/reset_password", methods=["POST"], strict_slashes=False)
 def get_reset_password_token() -> Tuple[str, int]:
-    """Generates a reset password token and returns it in a JSON payload.
-    """
+    """Generates a reset password token and returns it in a JSON payload."""
     try:
         email = request.form.get("email")
         token = auth.get_reset_password_token(email)
@@ -118,6 +116,7 @@ def get_reset_password_token() -> Tuple[str, int]:
         abort(403)
 
     """ Task 19 """
+
 
 @app.route("/reset_password", methods=["PUT"], strict_slashes=False)
 def update_password() -> Tuple[str, int]:
@@ -131,7 +130,10 @@ def update_password() -> Tuple[str, int]:
         if not email or not reset_token or not new_password:
             abort(403)
         auth.update_password(reset_token, new_password)
-        return jsonify({"email": f"{email}", "message": "Password updated"}), 200
+        return (
+            jsonify({"email": f"{email}", "message": "Password updated"}),
+            200,
+        )
     except Exception as e:
         abort(403)
 
