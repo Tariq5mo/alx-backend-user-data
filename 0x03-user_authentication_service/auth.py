@@ -7,6 +7,7 @@ from bcrypt import gensalt, hashpw
 from sqlalchemy.orm.exc import NoResultFound
 from db import DB
 from user import User
+import uuid
 
 
 def _hash_password(password: str) -> bytes:
@@ -42,8 +43,11 @@ class Auth:
                 email, _hash_password(password)
             )
 
+    """ Task 8"""
+
     def valid_login(self, email: str, password: str) -> bool:
-        """
+        """This method checks if the email and password provided are valid
+        credentials. Returns a boolean.
         """
         try:
             obj = self._db.find_user_by(email=email)
@@ -52,3 +56,11 @@ class Auth:
         except NoResultFound:
             return False
 
+
+""" Task 9"""
+
+
+def _generate_uuid():
+    """This method should generate a UUID.
+    """
+    return str(uuid.uuid4())
