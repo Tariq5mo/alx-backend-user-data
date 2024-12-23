@@ -133,7 +133,7 @@ def update_password() -> Tuple[str, int]:
         auth.update_password(reset_token, new_password)
         return jsonify({"email": f"{email}", "message": "Password updated"}), 200
     except Exception as e:
-        return jsonify({"message": "An error occurred"}), 403
+        return jsonify(e), 403
 
 
 if __name__ == "__main__":
