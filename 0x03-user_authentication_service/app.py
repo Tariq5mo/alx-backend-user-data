@@ -69,12 +69,15 @@ def logout() -> Response:
     """This route logs out a user by destroying the session ID
     and redirecting the user to the homepage.
     """
-    session_id = request.cookies.get("session_id")
-    obj = auth._db.find_user_by(session_id=session_id)
-    if obj:
-        auth.destroy_session(obj.id)
-        return redirect("/")
-    abort(403)
+    try:
+        session_id = request.cookies.get("session_id")
+        obj = auth._db.find_user_by(session_id=session_id)
+        if obj:
+            auth.destroy_session(obj.id)
+            return redirect("/")
+        abort(403)
+    except Exception:
+        abort(403)
 
 
 if __name__ == "__main__":
