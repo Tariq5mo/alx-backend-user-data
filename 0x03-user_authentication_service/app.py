@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """This module contains the minimal Flask app
 """
-from flask import Flask, jsonify, request
+import email
+from flask import Flask, jsonify, request, make_response, abort
 from auth import Auth
 from sqlalchemy.orm.exc import NoResultFound
 
@@ -33,6 +34,30 @@ def users():
         return jsonify({"email": f"{email}", "message": "user created"})
     except Exception:
         return jsonify({"message": "email already registered"}), 400
+
+
+""" Task 11 """
+
+
+@app.route('/sessions', methods=['POST'], strict_slashes=False)
+def sessions():
+    """This route checks if the email and password provided are valid
+    credentials.
+    return: a JSON payload if the email and password are valid
+    and a 401 status code if the email and password are not valid
+    """
+    email = request.form.get('email')
+    password = request.form.get('password')
+    if auth.valid_login(email, password):
+        sessions_id = auth.create_session(email)
+        resp = make_response(jsonify(
+            {"email": f"{email}", "message": "logged in"}
+            ))
+        resp.set_cookie("session_id", sessions_id)
+        return resp
+    abort(401)
+
+    return ''
 
 
 if __name__ == "__main__":
