@@ -109,7 +109,6 @@ class Auth:
         return None
 
 
-
 """ Task 9"""
 
 

@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """This module contains the minimal Flask app
 """
-from flask import Flask, Response, jsonify, request, make_response, abort
+from flask import Flask, Response, jsonify, request, session
+from flask import make_response, abort, redirect
 from auth import Auth
 from sqlalchemy.orm.exc import NoResultFound
 
@@ -59,6 +60,21 @@ def login() -> Response:
         abort(401)
     except Exception as e:
         abort(401)
+
+    """ Task 14 """
+
+
+@app.route("/sessions", methods=["DELETE"], strict_slashes=False)
+def logout():
+    """
+    """
+    session_id = request.cookies.get("session_id")
+    email = auth.get_user_from_session_id(session_id=session_id)
+    obj = auth._db.find_user_by(email=email)
+    if obj:
+        auth.destroy_session(obj.id)
+        return redirect("/")
+    abort(403)
 
 
 if __name__ == "__main__":
