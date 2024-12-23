@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """This module contains the minimal Flask app
 """
+from typing import Tuple
 from flask import Flask, Response, jsonify, request, session
 from flask import make_response, abort, redirect
 from auth import Auth
@@ -78,6 +79,24 @@ def logout() -> Response:
             auth.destroy_session(obj.id)
             return redirect("/")
         abort(403)
+    except Exception:
+        abort(403)
+
+    """ Task 15 """
+
+
+@app.route("/profile", methods=["GET"], strict_slashes=False)
+def profile() -> Tuple[str, int]:
+    """This route returns the profile of the user.
+    """
+    try:
+        session_id = request.cookies.get("session_id")
+        if not session_id:
+            abort(403)
+        email = auth.get_user_from_session_id(session_id)
+        if not email:
+            abort(403)
+        return jsonify({"email": f"{email}"}), 200
     except Exception:
         abort(403)
 
