@@ -49,11 +49,11 @@ def login() -> Response:
         email = request.form.get('email')
         password = request.form.get('password')
         if auth.valid_login(email, password):
-            sessions_id = auth.create_session(email)
+            session_id = auth.create_session(email)
             resp = make_response(jsonify(
                 {"email": f"{email}", "message": "logged in"}
                 ))
-            resp.set_cookie("session_id", sessions_id)
+            resp.set_cookie("session_id", session_id)
             return resp
         abort(401)
     except Exception:
