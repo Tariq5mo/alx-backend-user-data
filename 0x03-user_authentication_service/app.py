@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """This module contains the minimal Flask app
 """
-import email
 from flask import Flask, jsonify, request, make_response, abort
 from auth import Auth
 from sqlalchemy.orm.exc import NoResultFound
@@ -40,7 +39,7 @@ def users():
 
 
 @app.route('/sessions', methods=['POST'], strict_slashes=False)
-def login():
+def login() -> str:
     """This route checks if the email and password provided are valid
     credentials.
     return: a JSON payload if the email and password are valid
