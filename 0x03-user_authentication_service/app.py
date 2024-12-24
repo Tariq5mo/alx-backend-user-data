@@ -127,7 +127,6 @@ def update_password() -> Tuple[str, int]:
         email = request.form.get("email")
         reset_token = request.form.get("reset_token")
         new_password = request.form.get("new_password")
-        """ print(f"Email: {email}, Reset Token: {reset_token}, New Password: {new_password} from APP") """
         if not email or not reset_token or not new_password:
             abort(403)
         auth.update_password(reset_token, new_password)
