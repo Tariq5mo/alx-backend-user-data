@@ -2,7 +2,7 @@
 """This module contains the minimal Flask app
 """
 from typing import Tuple
-from flask import Flask, Response, jsonify, request
+from flask import Flask, jsonify, request
 from flask import make_response, abort, redirect
 from auth import Auth
 from sqlalchemy.orm.exc import NoResultFound
