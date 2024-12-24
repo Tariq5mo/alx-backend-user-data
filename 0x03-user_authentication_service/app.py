@@ -42,7 +42,7 @@ def users():
 
 
 @app.route("/sessions", methods=["POST"], strict_slashes=False)
-def login() -> Response:
+def login():
     """This route checks if the email and password provided are valid
     credentials.
     return: a JSON payload if the email and password are valid
@@ -66,7 +66,7 @@ def login() -> Response:
 
 
 @app.route("/sessions", methods=["DELETE"], strict_slashes=False)
-def logout() -> Response:
+def logout():
     """This route logs out a user by destroying the session ID
     and redirecting the user to the homepage.
     """
@@ -127,9 +127,10 @@ def update_password() -> Tuple[str, int]:
         email = request.form.get("email")
         reset_token = request.form.get("reset_token")
         new_password = request.form.get("new_password")
+        """ print(f"Email: {email}, Reset Token: {reset_token}, New Password: {new_password} from APP") """
         if not email or not reset_token or not new_password:
             abort(403)
-        AUTH.update_password(reset_token, new_password)
+        auth.update_password(reset_token, new_password)
         return (
             jsonify({"email": f"{email}", "message": "Password updated"}),
             200,

@@ -125,6 +125,9 @@ class Auth:
             obj = self._db.find_user_by(email=email)
             reset_token = _generate_uuid()
             obj.reset_token = reset_token
+            se = self._db._session
+            se.commit()
+
             return reset_token
         except Exception:
             raise ValueError()
